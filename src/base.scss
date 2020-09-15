@@ -25,3 +25,39 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+.nav-ul {
+  display: flex;
+  list-style: none;
+}
+
+.nav-list {
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.nav-link {
+  padding: 5px 10px 5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  background-color: rgb(187, 187, 187);
+  border-radius: 5px;
+
+  color: rgb(65, 65, 65);
+  transition: all 0.2s;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.nav-link_active {
+  background-color: rgb(66, 64, 64);
+  border-radius: 5px;
+  color: palevioletred;
+  text-decoration: solid underline palevioletred;
+}
