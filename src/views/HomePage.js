@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import filmsApi from '../../services/filmsApi';
-import routes from '../../routes';
-import MoviesPageList from '../MoviesPageList';
+import filmsApi from '../services/filmsApi';
+import routes from '../routes';
+import MoviesPageList from '../components/MoviesPageList/MoviesPageList';
 
 export default class HomePage extends Component {
   state = {
@@ -32,7 +32,11 @@ export default class HomePage extends Component {
         {isShowFilms && (
           <>
             <h2>Trending today</h2>
-            <MoviesPageList films={films} match={routes.movies} />
+            <MoviesPageList
+              films={films}
+              match={routes.movies}
+              location={this.props.location}
+            />
           </>
         )}
       </>

@@ -3,10 +3,10 @@ import { Route, Switch } from 'react-router-dom';
 
 import routes from '../routes';
 
-import HomePage from './views/HomePage';
-import MoviesPage from './views/MoviesPage';
-import MovieDetailsPage from './views/MovieDetailsPage';
-import NotFound from './views/NotFound';
+import HomePage from '../views/HomePage';
+import MoviesPage from '../views/MoviesPage';
+import MovieDetailsPage from '../views/MovieDetailsPage';
+import NotFound from '../views/NotFound';
 import Layout from './Layout';
 
 export default function App() {

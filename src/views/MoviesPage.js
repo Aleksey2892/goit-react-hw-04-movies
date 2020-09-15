@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import getQueryString from '../../utils/getQueryString';
+import getQueryString from '../utils/getQueryString';
 
-import filmsApi from '../../services/filmsApi';
-import MoviesPageList from '../MoviesPageList';
-import SearchForm from '../SearchForm';
+import filmsApi from '../services/filmsApi';
+import MoviesPageList from '../components/MoviesPageList/MoviesPageList';
+import SearchForm from '../components/SearchForm/SearchForm';
 
 export default class MoviesPage extends Component {
   state = {

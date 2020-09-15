@@ -1,6 +1,6 @@
 import React from 'react';
 
-import noAvatar from '../utils/no-avatar-350x350.jpg';
+import noAvatar from '../../utils/no-avatar-350x350.jpg';
 
 export default function Cast({ cast, poster }) {
   const isShowCast = cast.length > 0;

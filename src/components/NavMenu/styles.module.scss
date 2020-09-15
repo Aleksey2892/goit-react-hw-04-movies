@@ -1,0 +1,39 @@
+.navUl {
+  display: flex;
+  max-width: 500px;
+  padding-left: 50px;
+  padding-top: 15px;
+  margin: 0;
+  list-style: none;
+}
+
+.navList {
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.navLink {
+  padding: 5px 10px 5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  background-color: rgb(187, 187, 187);
+  border-radius: 5px;
+
+  color: rgb(65, 65, 65);
+  transition: all 0.2s;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.navLink_active {
+  background-color: palevioletred;
+  border-radius: 5px;
+  color: rgb(62, 17, 146);
+  box-shadow: rgb(143, 112, 216) 1px 3px 3px 3px;
+}

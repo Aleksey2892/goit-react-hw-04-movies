@@ -1,26 +1,28 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import routes from '../routes';
+import routes from '../../routes';
+
+import s from './styles.module.scss';
 
 export default function NavMenu() {
   return (
-    <ul className="nav-ul">
-      <li className="nav-list">
+    <ul className={s.navUl}>
+      <li className={s.navList}>
         <NavLink
           exact
           to={routes.home}
-          className="nav-link"
-          activeClassName="nav-link_active"
+          className={s.navLink}
+          activeClassName={s.navLink_active}
         >
           Home
         </NavLink>
       </li>
-      <li className="nav-list">
+      <li className={s.navList}>
         <NavLink
           to={routes.movies}
-          className="nav-link"
-          activeClassName="nav-link_active"
+          className={s.navLink}
+          activeClassName={s.navLink_active}
         >
           Movies
         </NavLink>

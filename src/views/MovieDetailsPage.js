@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 
-import routes from '../../routes';
-import filmsApi from '../../services/filmsApi';
+import routes from '../routes';
+import filmsApi from '../services/filmsApi';
 
-import noImg from '../../utils/no-image.jpg';
+import noImg from '../utils/no-image.jpg';
 
-import Cast from '../Cast';
-import Reviews from '../Reviews';
+import Cast from '../components/Cast/Cast';
+import Reviews from '../components/Reviews';
 
 import s from './styles.module.scss';
 
@@ -95,7 +95,7 @@ export default class MovieDetailsPage extends Component {
                 <li>
                   {details.original_title} ({details.release_date})
                 </li>
-                <li>User Score: {details.vote_average}%</li>
+                <li>User Score: {details.vote_average * 10}%</li>
                 <li>Overview</li>
                 <li>{details.overview}</li>
                 <li>Genres</li>
@@ -112,7 +112,10 @@ export default class MovieDetailsPage extends Component {
             <ul>
               <li>
                 <Link
-                  to={`${this.props.match.url}${routes.cast}`}
+                  to={{
+                    pathname: `${this.props.match.url}${routes.cast}`,
+                    state: { from: this.props.location.state.from },
+                  }}
                   onClick={this.handleCastClick}
                 >
                   Cast
@@ -120,7 +123,10 @@ export default class MovieDetailsPage extends Component {
               </li>
               <li>
                 <Link
-                  to={`${this.props.match.url}${routes.reviews}`}
+                  to={{
+                    pathname: `${this.props.match.url}${routes.reviews}`,
+                    state: { from: this.props.location.state.from },
+                  }}
                   onClick={this.handleReviewClick}
                 >
                   Review
