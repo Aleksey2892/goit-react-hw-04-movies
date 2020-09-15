@@ -4,15 +4,19 @@ import { Route, Switch, Link } from 'react-router-dom';
 import routes from '../../routes';
 import filmsApi from '../../services/filmsApi';
 
-import Cast from '../Cast/Cast';
-import Reviews from '../Reviews/Reviews';
+import noImg from '../../utils/no-image.jpg';
 
-class MovieDetailsPage extends Component {
+import Cast from '../Cast';
+import Reviews from '../Reviews';
+
+import s from './styles.module.scss';
+
+export default class MovieDetailsPage extends Component {
   state = {
     details: null,
     cast: null,
     review: null,
-    poster: 'https://image.tmdb.org/t/p/w300',
+    poster: 'https://image.tmdb.org/t/p/w200',
   };
 
   componentDidMount() {
@@ -58,6 +62,16 @@ class MovieDetailsPage extends Component {
     }
   };
 
+  handleBackBtn = () => {
+    const { state } = this.props.location;
+
+    if (state && state.from) {
+      return this.props.history.push(state.from);
+    }
+
+    this.props.history.push(routes.movies);
+  };
+
   render() {
     const { details, cast, review, poster } = this.state;
     const isShowDetails = details;
@@ -66,12 +80,15 @@ class MovieDetailsPage extends Component {
 
     return (
       <>
+        <button type="buton" onClick={this.handleBackBtn}>
+          Go back to the movies
+        </button>
         {isShowDetails && (
           <>
-            {/* <h1>Hello! {details.id}</h1> */}
-            <div>
+            <h1>Hello! {details.id}</h1>
+            <div className={s.detailsBox}>
               <img
-                src={poster + details.poster_path}
+                src={details.poster_path ? poster + details.poster_path : noImg}
                 alt={details.original_title}
               />
               <ul>
@@ -135,5 +152,3 @@ class MovieDetailsPage extends Component {
     );
   }
 }
-
-export default MovieDetailsPage;

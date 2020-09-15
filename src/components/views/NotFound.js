@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import routes from '../../routes';
 
-const NotFound = () => {
+export default function NotFound() {
   return (
     <p>
       Page not found :(
@@ -11,6 +11,4 @@ const NotFound = () => {
       Please go link to <Link to={routes.home}>the home page!</Link>
     </p>
   );
-};
-
-export default NotFound;
+}

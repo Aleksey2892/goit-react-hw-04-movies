@@ -6,7 +6,19 @@ const apiKey = 'cc24e28d216ef164940b9fd9893ff62a';
 const defaultFetch = () => {
   return axios
     .get(`trending/movie/day?api_key=${apiKey}`)
-    .then(({ data }) => data);
+    .then(({ data }) => data)
+    .catch(err => {
+      throw err;
+    });
+};
+
+const defaultFetchPopular = () => {
+  return axios
+    .get(`movie/popular?api_key=${apiKey}&language=en-US&page=1`)
+    .then(({ data }) => data.results)
+    .catch(err => {
+      throw err;
+    });
 };
 
 const fetchWithQuery = query => {
@@ -14,29 +26,42 @@ const fetchWithQuery = query => {
     .get(
       `search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`,
     )
-    .then(({ data }) => data);
+    .then(({ data }) => data)
+    .catch(err => {
+      throw err;
+    });
 };
 
 const fetchWithId = id => {
   return axios
     .get(`movie/${id}?api_key=${apiKey}&language=en-US`)
-    .then(({ data }) => data);
+    .then(({ data }) => data)
+    .catch(err => {
+      throw err;
+    });
 };
 
 const fetchCastWithId = id => {
   return axios
     .get(`movie/${id}/credits?api_key=${apiKey}`)
-    .then(({ data }) => data);
+    .then(({ data }) => data)
+    .catch(err => {
+      throw err;
+    });
 };
 
 const fetchReviewWithId = id => {
   return axios
     .get(`movie/${id}/reviews?api_key=${apiKey}&language=en-US&page=1`)
-    .then(({ data }) => data);
+    .then(({ data }) => data)
+    .catch(err => {
+      throw err;
+    });
 };
 
 export default {
   defaultFetch,
+  defaultFetchPopular,
   fetchWithQuery,
   fetchWithId,
   fetchCastWithId,

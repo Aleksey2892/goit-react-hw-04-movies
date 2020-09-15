@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import filmsApi from '../../services/filmsApi';
 import routes from '../../routes';
-import MoviesPageList from '../MoviesPage/MoviesPageList';
+import MoviesPageList from '../MoviesPageList';
 
 export default class HomePage extends Component {
   state = {
@@ -29,7 +29,12 @@ export default class HomePage extends Component {
 
     return (
       <>
-        {isShowFilms && <MoviesPageList films={films} match={routes.movies} />}
+        {isShowFilms && (
+          <>
+            <h2>Trending today</h2>
+            <MoviesPageList films={films} match={routes.movies} />
+          </>
+        )}
       </>
     );
   }
