@@ -1,8 +1,7 @@
 import React from 'react';
 
 export default function Reviews({ review }) {
-  console.log(review);
-  const isShowReview = review.length > 0;
+  const isShowReview = review;
 
   return (
     <>

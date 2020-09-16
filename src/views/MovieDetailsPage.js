@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link, Redirect } from 'react-router-dom';
 
 import routes from '../routes';
 import filmsApi from '../services/filmsApi';
@@ -16,22 +16,32 @@ export default class MovieDetailsPage extends Component {
     details: null,
     cast: null,
     review: null,
-    poster: 'https://image.tmdb.org/t/p/w200',
   };
 
   componentDidMount() {
     const { showId } = this.props.match.params;
 
     this.fetchForDetails(showId);
-
-    filmsApi.fetchReviewWithId(613504);
   }
 
   fetchForDetails = async id => {
     try {
       const details = await filmsApi.fetchWithId(id);
 
-      this.setState({ details });
+      const updateDetails = details => {
+        if (details.poster_path) {
+          const defUrl = 'https://image.tmdb.org/t/p/w200';
+          details.poster_path = defUrl + details.poster_path;
+        }
+
+        if (details.release_date) {
+          details.release_date = details.release_date.slice(0, 4);
+        }
+
+        return details;
+      };
+
+      this.setState({ details: updateDetails(details) });
     } catch (err) {
       console.log(err);
     }
@@ -44,7 +54,19 @@ export default class MovieDetailsPage extends Component {
       const { cast } = await filmsApi.fetchCastWithId(id);
       console.log(cast);
 
-      this.setState({ cast });
+      const updateCastImg = cast => {
+        const defUrl = 'https://image.tmdb.org/t/p/w200';
+
+        const updateImgUrl = cast.map(item => {
+          if (item.profile_path) {
+            item.profile_path = defUrl + item.profile_path;
+          }
+          return item;
+        });
+        return updateImgUrl;
+      };
+
+      this.setState({ cast: updateCastImg(cast) });
     } catch (err) {
       console.log(err);
     }
@@ -73,38 +95,46 @@ export default class MovieDetailsPage extends Component {
   };
 
   render() {
-    const { details, cast, review, poster } = this.state;
+    const { details, cast, review, imgUrl } = this.state;
     const isShowDetails = details;
     const isShowCast = cast;
     const isShowReview = review;
 
     return (
       <>
-        <button type="buton" onClick={this.handleBackBtn}>
-          Go back to the movies
-        </button>
         {isShowDetails && (
           <>
-            <h1>Hello! {details.id}</h1>
             <div className={s.detailsBox}>
-              <img
-                src={details.poster_path ? poster + details.poster_path : noImg}
-                alt={details.original_title}
-              />
-              <ul>
-                <li>
+              <div>
+                <button
+                  type="buton"
+                  onClick={this.handleBackBtn}
+                  className={s.goBackBtn}
+                >
+                  Go back to the movies
+                </button>
+                <img
+                  src={details.poster_path ? details.poster_path : noImg}
+                  alt={details.original_title}
+                />
+              </div>
+
+              <div className={s.aboutFilmBox}>
+                <h3>
                   {details.original_title} ({details.release_date})
-                </li>
-                <li>User Score: {details.vote_average * 10}%</li>
-                <li>Overview</li>
-                <li>{details.overview}</li>
-                <li>Genres</li>
-                <li>
-                  {details.genres.map(genre => (
-                    <span key={genre.id}>{genre.name} </span>
-                  ))}
-                </li>
-              </ul>
+                </h3>
+                <h4>User Score: {details.vote_average * 10}%</h4>
+                <h3>Overview</h3>
+                <p>{details.overview}</p>
+                <h4>Genres</h4>
+                <p>
+                  {details.genres &&
+                    details.genres.map(genre => (
+                      <span key={genre.id}>{genre.name} </span>
+                    ))}
+                  {!details.genres && <span>No genres</span>}
+                </p>
+              </div>
             </div>
 
             <hr />
@@ -143,7 +173,7 @@ export default class MovieDetailsPage extends Component {
             <Route
               exact
               path={`${routes.movieDetails}${routes.cast}`}
-              render={props => <Cast {...props} cast={cast} poster={poster} />}
+              render={props => <Cast {...props} cast={cast} imgUrl={imgUrl} />}
             />
           )}
           {isShowReview && (
@@ -153,6 +183,8 @@ export default class MovieDetailsPage extends Component {
               render={props => <Reviews {...props} review={review} />}
             />
           )}
+
+          {/* {!isShowCast && !isShowReview && <Redirect to={routes.home} />} */}
         </Switch>
       </>
     );

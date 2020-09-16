@@ -1,12 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function MoviesPageList({ films, match, location }) {
+import noAvatar from '../../utils/no-image.jpg';
+
+import s from './styles.module.scss';
+
+export default function MoviesPageList({ films, match, location, imgUrl }) {
+  console.log(films);
+
   return (
     <>
-      <ul>
-        {films.map(({ id, title }) => (
-          <li key={id}>
+      <ul className={s.ulList}>
+        {films.map(({ id, poster_path, title }) => (
+          <li key={id} className={s.filmItem}>
+            <img
+              src={poster_path ? imgUrl + poster_path : noAvatar}
+              alt={title}
+            />
             <Link
               to={{
                 pathname: `${match}/${id}`,

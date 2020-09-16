@@ -23,7 +23,7 @@ export default class SearchForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className={s.form}>
         <label>
           <input
             autoFocus
@@ -34,7 +34,7 @@ export default class SearchForm extends Component {
             value={this.state.inputValue}
             onChange={this.handleChange}
           />
-          <button>Search</button>
+          <button className={s.btnSearch}>Search</button>
         </label>
       </form>
     );

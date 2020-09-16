@@ -10,11 +10,11 @@ export default class MoviesPage extends Component {
   state = {
     films: [],
     showPopular: false,
+    imgUrl: 'https://image.tmdb.org/t/p/w200',
   };
 
   componentDidMount() {
     const { query } = getQueryString(this.props.location.search);
-    console.log(query);
 
     if (query) {
       console.log('есть');
@@ -37,7 +37,7 @@ export default class MoviesPage extends Component {
   fetchPopular = async () => {
     try {
       const popular = await filmsApi.defaultFetchPopular();
-      console.log(popular);
+
       this.setState({ films: popular });
     } catch (err) {
       console.log(err);
@@ -60,7 +60,7 @@ export default class MoviesPage extends Component {
   };
 
   render() {
-    const { films, showPopular } = this.state;
+    const { films, showPopular, imgUrl } = this.state;
     const isShowFilms = films.length > 0;
     const isShowPopular = showPopular;
 
@@ -75,6 +75,7 @@ export default class MoviesPage extends Component {
               films={films}
               match={this.props.match.url}
               location={this.props.location}
+              imgUrl={imgUrl}
             />
           </>
         )}

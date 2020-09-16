@@ -1,3 +1,28 @@
 .detailsBox {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 30px auto;
+  max-width: 800px;
+}
+
+.aboutFilmBox {
+  width: 500px;
+}
+
+.goBackBtn {
+  margin-bottom: 20px;
+  padding: 10px 10px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: palevioletred;
+    color: white;
+    box-shadow: slategrey 2px 2px 5px 2px;
+  }
 }

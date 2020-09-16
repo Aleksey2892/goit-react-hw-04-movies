@@ -7,6 +7,7 @@ import MoviesPageList from '../components/MoviesPageList/MoviesPageList';
 export default class HomePage extends Component {
   state = {
     films: [],
+    imgUrl: 'https://image.tmdb.org/t/p/w200',
   };
 
   componentDidMount() {
@@ -24,7 +25,7 @@ export default class HomePage extends Component {
   };
 
   render() {
-    const { films } = this.state;
+    const { films, imgUrl } = this.state;
     const isShowFilms = films.length > 0;
 
     return (
@@ -36,6 +37,7 @@ export default class HomePage extends Component {
               films={films}
               match={routes.movies}
               location={this.props.location}
+              imgUrl={imgUrl}
             />
           </>
         )}

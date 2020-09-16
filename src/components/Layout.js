@@ -2,11 +2,13 @@ import React from 'react';
 
 import Header from './Header';
 
+import s from './styles.module.scss';
+
 export default function Layout({ children }) {
   return (
-    <div>
+    <>
       <Header />
-      {children}
-    </div>
+      <div className={s.layout}>{children}</div>
+    </>
   );
 }
