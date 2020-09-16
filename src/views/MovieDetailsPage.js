@@ -3,7 +3,7 @@ import { Route, Switch, Link, Redirect } from 'react-router-dom';
 
 import routes from '../routes';
 import filmsApi from '../services/filmsApi';
-
+import updateDetails from '../utils/updateDetails';
 import noImg from '../assets/img/no-image.jpg';
 
 import Cast from '../components/Cast/Cast';
@@ -14,12 +14,11 @@ import s from './styles.module.scss';
 export default class MovieDetailsPage extends Component {
   state = {
     details: null,
-    cast: null,
-    review: null,
   };
 
   componentDidMount() {
     const { showId } = this.props.match.params;
+    console.log(this.props.location.state.from);
 
     this.fetchForDetails(showId);
   }
@@ -28,61 +27,11 @@ export default class MovieDetailsPage extends Component {
     try {
       const details = await filmsApi.fetchWithId(id);
 
-      const updateDetails = details => {
-        if (details.poster_path) {
-          const defUrl = 'https://image.tmdb.org/t/p/w200';
-          details.poster_path = defUrl + details.poster_path;
-        }
-
-        if (details.release_date) {
-          details.release_date = details.release_date.slice(0, 4);
-        }
-
-        return details;
-      };
-
       this.setState({ details: updateDetails(details) });
     } catch (err) {
       console.log(err);
     }
   };
-
-  // handleCastClick = async () => {
-  //   const { id } = this.state.details;
-
-  //   try {
-  //     const { cast } = await filmsApi.fetchCastWithId(id);
-  //     console.log(cast);
-
-  //     const updateCastImg = cast => {
-  //       const defUrl = 'https://image.tmdb.org/t/p/w200';
-
-  //       const updateImgUrl = cast.map(item => {
-  //         if (item.profile_path) {
-  //           item.profile_path = defUrl + item.profile_path;
-  //         }
-  //         return item;
-  //       });
-  //       return updateImgUrl;
-  //     };
-
-  //     this.setState({ cast: updateCastImg(cast) });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // handleReviewClick = async () => {
-  //   const { id } = this.state.details;
-
-  //   try {
-  //     const { results } = await filmsApi.fetchReviewWithId(id);
-
-  //     this.setState({ review: results });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   handleBackBtn = () => {
     const { state } = this.props.location;
@@ -97,8 +46,6 @@ export default class MovieDetailsPage extends Component {
   render() {
     const { details } = this.state;
     const isShowDetails = details;
-    // const isShowCast = cast;
-    // const isShowReview = review;
 
     return (
       <>
@@ -146,7 +93,6 @@ export default class MovieDetailsPage extends Component {
                     pathname: `${this.props.match.url}${routes.cast}`,
                     state: { from: this.props.location.state.from },
                   }}
-                  // onClick={this.handleCastClick}
                 >
                   Cast
                 </Link>
@@ -157,7 +103,6 @@ export default class MovieDetailsPage extends Component {
                     pathname: `${this.props.match.url}${routes.reviews}`,
                     state: { from: this.props.location.state.from },
                   }}
-                  // onClick={this.handleReviewClick}
                 >
                   Review
                 </Link>
@@ -170,10 +115,10 @@ export default class MovieDetailsPage extends Component {
 
         <Route path={`${routes.movieDetails}${routes.cast}`} component={Cast} />
 
-        {/* <Route
-            path={`${routes.movieDetails}${routes.reviews}`}
-            render={props => <Reviews {...props} review={review} />}
-          /> */}
+        <Route
+          path={`${routes.movieDetails}${routes.reviews}`}
+          component={Reviews}
+        />
 
         {/* <Redirect to={routes.home} /> */}
       </>
