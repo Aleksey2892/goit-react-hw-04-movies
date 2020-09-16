@@ -4,10 +4,10 @@ import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import routes from '../routes';
 import filmsApi from '../services/filmsApi';
 
-import noImg from '../utils/no-image.jpg';
+import noImg from '../assets/img/no-image.jpg';
 
 import Cast from '../components/Cast/Cast';
-import Reviews from '../components/Reviews';
+import Reviews from '../components/Reviews/Reviews';
 
 import s from './styles.module.scss';
 
@@ -47,42 +47,42 @@ export default class MovieDetailsPage extends Component {
     }
   };
 
-  handleCastClick = async () => {
-    const { id } = this.state.details;
+  // handleCastClick = async () => {
+  //   const { id } = this.state.details;
 
-    try {
-      const { cast } = await filmsApi.fetchCastWithId(id);
-      console.log(cast);
+  //   try {
+  //     const { cast } = await filmsApi.fetchCastWithId(id);
+  //     console.log(cast);
 
-      const updateCastImg = cast => {
-        const defUrl = 'https://image.tmdb.org/t/p/w200';
+  //     const updateCastImg = cast => {
+  //       const defUrl = 'https://image.tmdb.org/t/p/w200';
 
-        const updateImgUrl = cast.map(item => {
-          if (item.profile_path) {
-            item.profile_path = defUrl + item.profile_path;
-          }
-          return item;
-        });
-        return updateImgUrl;
-      };
+  //       const updateImgUrl = cast.map(item => {
+  //         if (item.profile_path) {
+  //           item.profile_path = defUrl + item.profile_path;
+  //         }
+  //         return item;
+  //       });
+  //       return updateImgUrl;
+  //     };
 
-      this.setState({ cast: updateCastImg(cast) });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     this.setState({ cast: updateCastImg(cast) });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  handleReviewClick = async () => {
-    const { id } = this.state.details;
+  // handleReviewClick = async () => {
+  //   const { id } = this.state.details;
 
-    try {
-      const { results } = await filmsApi.fetchReviewWithId(id);
+  //   try {
+  //     const { results } = await filmsApi.fetchReviewWithId(id);
 
-      this.setState({ review: results });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     this.setState({ review: results });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   handleBackBtn = () => {
     const { state } = this.props.location;
@@ -95,10 +95,10 @@ export default class MovieDetailsPage extends Component {
   };
 
   render() {
-    const { details, cast, review, imgUrl } = this.state;
+    const { details } = this.state;
     const isShowDetails = details;
-    const isShowCast = cast;
-    const isShowReview = review;
+    // const isShowCast = cast;
+    // const isShowReview = review;
 
     return (
       <>
@@ -111,7 +111,7 @@ export default class MovieDetailsPage extends Component {
                   onClick={this.handleBackBtn}
                   className={s.goBackBtn}
                 >
-                  Go back to the movies
+                  Go back
                 </button>
                 <img
                   src={details.poster_path ? details.poster_path : noImg}
@@ -146,7 +146,7 @@ export default class MovieDetailsPage extends Component {
                     pathname: `${this.props.match.url}${routes.cast}`,
                     state: { from: this.props.location.state.from },
                   }}
-                  onClick={this.handleCastClick}
+                  // onClick={this.handleCastClick}
                 >
                   Cast
                 </Link>
@@ -157,7 +157,7 @@ export default class MovieDetailsPage extends Component {
                     pathname: `${this.props.match.url}${routes.reviews}`,
                     state: { from: this.props.location.state.from },
                   }}
-                  onClick={this.handleReviewClick}
+                  // onClick={this.handleReviewClick}
                 >
                   Review
                 </Link>
@@ -168,24 +168,14 @@ export default class MovieDetailsPage extends Component {
 
         <hr />
 
-        <Switch>
-          {isShowCast && (
-            <Route
-              exact
-              path={`${routes.movieDetails}${routes.cast}`}
-              render={props => <Cast {...props} cast={cast} imgUrl={imgUrl} />}
-            />
-          )}
-          {isShowReview && (
-            <Route
-              exact
-              path={`${routes.movieDetails}${routes.reviews}`}
-              render={props => <Reviews {...props} review={review} />}
-            />
-          )}
+        <Route path={`${routes.movieDetails}${routes.cast}`} component={Cast} />
 
-          {/* {!isShowCast && !isShowReview && <Redirect to={routes.home} />} */}
-        </Switch>
+        {/* <Route
+            path={`${routes.movieDetails}${routes.reviews}`}
+            render={props => <Reviews {...props} review={review} />}
+          /> */}
+
+        {/* <Redirect to={routes.home} /> */}
       </>
     );
   }
