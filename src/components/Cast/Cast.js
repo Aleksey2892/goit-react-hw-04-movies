@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 import filmsApi from '../../services/filmsApi';
 import updateCastImg from '../../utils/updateCastImg';
 
-// import queryString from 'query-string';
 import noAvatar from '../../assets/img/no-avatar-350x350.jpg';
+
+import s from './styles.module.scss';
 
 export default class Cast extends Component {
   state = {
-    casts: null,
+    casts: [],
   };
 
   async componentDidMount() {
@@ -25,17 +26,22 @@ export default class Cast extends Component {
 
   render() {
     const { casts } = this.state;
-    const isShowCast = casts;
+    const isShowCast = casts.length > 0;
 
     return (
       <>
         {isShowCast && (
-          <ul>
+          <ul className={s.castUl}>
             {casts.map(({ id, name, character, profile_path }) => {
               return (
-                <li key={id}>
-                  <img src={profile_path ? profile_path : noAvatar} alt={id} />
-                  <p>{name}</p>
+                <li key={id} className={s.castList}>
+                  <img
+                    src={profile_path ? profile_path : noAvatar}
+                    alt={id}
+                    className={s.castImg}
+                  />
+
+                  <p>Name: {name}</p>
                   <p>Character: {character}</p>
                 </li>
               );

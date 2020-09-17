@@ -15,7 +15,7 @@ export default function App() {
       <Switch>
         <Route component={HomePage} exact path={routes.home} />
         <Route component={MoviesPage} exact path={routes.movies} />
-        <Route component={MovieDetailsPage} path={routes.movieDetails} />
+        <Route component={MovieDetailsPage} exact path={routes.movieDetails} />
 
         <Redirect to={routes.home} />
       </Switch>

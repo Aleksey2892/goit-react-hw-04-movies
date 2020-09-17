@@ -36,6 +36,7 @@ export default class Reviews extends Component {
             })}
           </ul>
         )}
+
         {!isShowReview && (
           <>
             <p>We don't have any reviews for this movie.</p>

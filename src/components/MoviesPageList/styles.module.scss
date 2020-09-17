@@ -13,4 +13,21 @@
 .filmItem {
   max-width: 200px;
   text-align: center;
+  background-color: rgb(197, 195, 204);
+  margin-bottom: 20px;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: rgb(180, 168, 224);
+    box-shadow: 2px 2px 10px 2px;
+  }
+}
+
+.nameFilm {
+  color: black;
+  text-transform: uppercase;
+}
+
+.link {
+  text-decoration: none;
 }

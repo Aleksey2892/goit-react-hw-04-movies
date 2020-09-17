@@ -18,10 +18,17 @@ export default class MovieDetailsPage extends Component {
 
   componentDidMount() {
     const { showId } = this.props.match.params;
-    console.log(this.props.location.state.from);
 
     this.fetchForDetails(showId);
   }
+
+  checkLocation = () => {
+    const { state } = this.props.location;
+    if (state && state.from) {
+      return state.from;
+    }
+    return '';
+  };
 
   fetchForDetails = async id => {
     try {
@@ -91,7 +98,7 @@ export default class MovieDetailsPage extends Component {
                 <Link
                   to={{
                     pathname: `${this.props.match.url}${routes.cast}`,
-                    state: { from: this.props.location.state.from },
+                    state: { from: this.checkLocation() },
                   }}
                 >
                   Cast
@@ -101,7 +108,7 @@ export default class MovieDetailsPage extends Component {
                 <Link
                   to={{
                     pathname: `${this.props.match.url}${routes.reviews}`,
-                    state: { from: this.props.location.state.from },
+                    state: { from: this.checkLocation() },
                   }}
                 >
                   Review
@@ -113,9 +120,14 @@ export default class MovieDetailsPage extends Component {
 
         <hr />
 
-        <Route path={`${routes.movieDetails}${routes.cast}`} component={Cast} />
+        <Route
+          exact
+          path={`${routes.movieDetails}${routes.cast}`}
+          component={Cast}
+        />
 
         <Route
+          exact
           path={`${routes.movieDetails}${routes.reviews}`}
           component={Reviews}
         />

@@ -3,8 +3,12 @@ import React, { Component } from 'react';
 import getQueryString from '../utils/getQueryString';
 
 import filmsApi from '../services/filmsApi';
+import updateMoviesImg from '../utils/updateMoviesImg';
+
 import MoviesPageList from '../components/MoviesPageList/MoviesPageList';
 import SearchForm from '../components/SearchForm/SearchForm';
+
+import s from './styles.module.scss';
 
 export default class MoviesPage extends Component {
   state = {
@@ -37,7 +41,7 @@ export default class MoviesPage extends Component {
     try {
       const popular = await filmsApi.defaultFetchPopular();
 
-      this.setState({ films: popular });
+      this.setState({ films: updateMoviesImg(popular) });
     } catch (err) {
       console.log(err);
     }
@@ -52,7 +56,7 @@ export default class MoviesPage extends Component {
     try {
       const { results } = await filmsApi.fetchWithQuery(query);
 
-      this.setState({ showPopular: false, films: results });
+      this.setState({ showPopular: false, films: updateMoviesImg(results) });
     } catch (err) {
       console.log(err);
     }
@@ -69,7 +73,9 @@ export default class MoviesPage extends Component {
 
         {isShowFilms && (
           <>
-            {isShowPopular && <h2>This is popular list</h2>}
+            {isShowPopular && (
+              <h2 className={s.titlePopular}>This is popular list</h2>
+            )}
             <MoviesPageList
               films={films}
               match={this.props.match.url}
