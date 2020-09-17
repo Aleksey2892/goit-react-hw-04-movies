@@ -1,15 +1,22 @@
-import React, { Component } from 'react';
-import { Route, Switch, Link, Redirect } from 'react-router-dom';
+import React, { Component, lazy, Suspense } from 'react';
+import { Route, Link } from 'react-router-dom';
 
 import routes from '../routes';
 import filmsApi from '../services/filmsApi';
 import updateDetails from '../utils/updateDetails';
 import noImg from '../assets/img/no-image.jpg';
-
-import Cast from '../components/Cast/Cast';
-import Reviews from '../components/Reviews/Reviews';
+import Loader from '../components/Loader/Loader';
 
 import s from './styles.module.scss';
+
+const AsyncCast = lazy(() =>
+  import('../components/Cast/Cast' /* webpackChunkName: 'moduleCast' */),
+);
+const AsyncReviews = lazy(() =>
+  import(
+    '../components/Reviews/Reviews' /* webpackChunkName: 'moduleReviews' */
+  ),
+);
 
 export default class MovieDetailsPage extends Component {
   state = {
@@ -120,17 +127,19 @@ export default class MovieDetailsPage extends Component {
 
         <hr />
 
-        <Route
-          exact
-          path={`${routes.movieDetails}${routes.cast}`}
-          component={Cast}
-        />
+        <Suspense fallback={<Loader />}>
+          <Route
+            exact
+            path={`${routes.movieDetails}${routes.cast}`}
+            component={AsyncCast}
+          />
 
-        <Route
-          exact
-          path={`${routes.movieDetails}${routes.reviews}`}
-          component={Reviews}
-        />
+          <Route
+            exact
+            path={`${routes.movieDetails}${routes.reviews}`}
+            component={AsyncReviews}
+          />
+        </Suspense>
 
         {/* <Redirect to={routes.home} /> */}
       </>

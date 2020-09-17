@@ -4,6 +4,7 @@ import getQueryString from '../utils/getQueryString';
 
 import filmsApi from '../services/filmsApi';
 import updateMoviesImg from '../utils/updateMoviesImg';
+import Loader from '../components/Loader/Loader';
 
 import MoviesPageList from '../components/MoviesPageList/MoviesPageList';
 import SearchForm from '../components/SearchForm/SearchForm';
@@ -14,7 +15,7 @@ export default class MoviesPage extends Component {
   state = {
     films: [],
     showPopular: false,
-    imgUrl: 'https://image.tmdb.org/t/p/w200',
+    loader: false,
   };
 
   componentDidMount() {
@@ -38,16 +39,20 @@ export default class MoviesPage extends Component {
   }
 
   fetchPopular = async () => {
+    this.setState({ loader: true });
+
     try {
       const popular = await filmsApi.defaultFetchPopular();
 
-      this.setState({ films: updateMoviesImg(popular) });
+      this.setState({ films: updateMoviesImg(popular), loader: false });
     } catch (err) {
       console.log(err);
     }
   };
 
   handleSubmitQuery = async query => {
+    this.setState({ loader: true });
+
     this.props.history.push({
       ...this.props.location,
       search: `query=${query}`,
@@ -56,20 +61,31 @@ export default class MoviesPage extends Component {
     try {
       const { results } = await filmsApi.fetchWithQuery(query);
 
-      this.setState({ showPopular: false, films: updateMoviesImg(results) });
+      this.setState({
+        showPopular: false,
+        films: updateMoviesImg(results),
+        loader: false,
+      });
     } catch (err) {
       console.log(err);
     }
   };
 
   render() {
-    const { films, showPopular, imgUrl } = this.state;
+    const { films, showPopular, loader } = this.state;
     const isShowFilms = films.length > 0;
     const isShowPopular = showPopular;
+    const isShowLoader = loader;
 
     return (
       <>
         <SearchForm onSubmit={this.handleSubmitQuery} />
+
+        {isShowLoader && (
+          <div>
+            <Loader />
+          </div>
+        )}
 
         {isShowFilms && (
           <>
@@ -80,7 +96,6 @@ export default class MoviesPage extends Component {
               films={films}
               match={this.props.match.url}
               location={this.props.location}
-              imgUrl={imgUrl}
             />
           </>
         )}
