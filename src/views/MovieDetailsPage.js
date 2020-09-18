@@ -99,10 +99,11 @@ export default class MovieDetailsPage extends Component {
             </div>
 
             <hr />
-            <p>Additional Information</p>
-            <ul>
-              <li>
+            <p className={s.infoTitle}>Additional Information</p>
+            <ul className={s.addInfo}>
+              <li className={s.info}>
                 <Link
+                  className={s.infoLink}
                   to={{
                     pathname: `${this.props.match.url}${routes.cast}`,
                     state: { from: this.checkLocation() },
@@ -111,8 +112,9 @@ export default class MovieDetailsPage extends Component {
                   Cast
                 </Link>
               </li>
-              <li>
+              <li className={s.info}>
                 <Link
+                  className={s.infoLink}
                   to={{
                     pathname: `${this.props.match.url}${routes.reviews}`,
                     state: { from: this.checkLocation() },

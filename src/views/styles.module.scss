@@ -19,6 +19,7 @@
   cursor: pointer;
   font-weight: 600;
   transition: all 0.2s;
+  border: 1px solid black;
 
   &:hover {
     background-color: palevioletred;
@@ -37,4 +38,40 @@
   text-align: center;
   color: palevioletred;
   text-transform: uppercase;
+}
+
+.infoTitle {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.addInfo {
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+}
+
+.info {
+  margin-right: 20px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.infoLink {
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #bbbbbb;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: palevioletred;
+    color: white;
+  }
 }

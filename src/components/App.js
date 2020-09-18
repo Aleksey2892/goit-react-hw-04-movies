@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import routes from '../routes';
@@ -21,15 +21,13 @@ import Layout from './Layout';
 export default function App() {
   return (
     <Layout>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Switch>
-          <Route component={HomePage} exact path={routes.home} />
-          <Route component={MoviesPage} exact path={routes.movies} />
-          <Route component={MovieDetailsPage} path={routes.movieDetails} />
+      <Switch>
+        <Route component={HomePage} exact path={routes.home} />
+        <Route component={MoviesPage} exact path={routes.movies} />
+        <Route component={MovieDetailsPage} path={routes.movieDetails} />
 
-          <Redirect to={routes.home} />
-        </Switch>
-      </Suspense>
+        <Redirect to={routes.home} />
+      </Switch>
     </Layout>
   );
 }
