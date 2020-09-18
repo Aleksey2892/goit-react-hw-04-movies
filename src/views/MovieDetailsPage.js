@@ -142,8 +142,6 @@ export default class MovieDetailsPage extends Component {
             component={AsyncReviews}
           />
         </Suspense>
-
-        {/* <Redirect to={routes.home} /> */}
       </>
     );
   }

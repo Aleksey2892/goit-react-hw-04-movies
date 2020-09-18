@@ -39,6 +39,7 @@ export default class HomePage extends Component {
     return (
       <>
         {isShowLoader && <Loader />}
+
         {isShowFilms && (
           <>
             <h2 className={s.titlePopular}>Trending today</h2>

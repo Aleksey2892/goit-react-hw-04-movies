@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import getQueryString from '../utils/getQueryString';
-
 import filmsApi from '../services/filmsApi';
 import updateMoviesImg from '../utils/updateMoviesImg';
 import Loader from '../components/Loader/Loader';
@@ -92,6 +91,7 @@ export default class MoviesPage extends Component {
             {isShowPopular && (
               <h2 className={s.titlePopular}>This is popular list</h2>
             )}
+
             <MoviesPageList
               films={films}
               match={this.props.match.url}
