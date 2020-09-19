@@ -1,16 +1,15 @@
 import React, { Component, lazy, Suspense } from 'react';
-import { Route, NavLink } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import routes from '../routes';
 import filmsApi from '../services/filmsApi';
 import { updateDetails } from '../utils/updateValues';
-// import noImg from '../assets/img/no-image.jpg';
 import Loader from '../components/Loader/Loader';
 
 import Details from '../components/Details/Details';
+import Links from '../components/Links/Links';
 
 import s from './styles.module.scss';
-import Links from '../components/Links/Links';
 
 const AsyncCast = lazy(() =>
   import('../components/Cast/Cast' /* webpackChunkName: 'moduleCast' */),
