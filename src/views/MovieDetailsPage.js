@@ -40,7 +40,7 @@ export default class MovieDetailsPage extends Component {
   };
 
   fetchForDetails = async id => {
-    const details = await filmsApi.fetchMoviesById(id);
+    const details = await filmsApi.fetchMovieById(id);
 
     this.setState({ details: updateDetails(details) });
   };

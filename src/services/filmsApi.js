@@ -49,7 +49,7 @@ const fetchWithQuery = async query => {
   }
 };
 
-const fetchMoviesById = async id => {
+const fetchMovieById = async id => {
   try {
     const { data } = await axios.get(
       `movie/${id}?api_key=${apiKey}&language=en-US`,
@@ -99,7 +99,7 @@ export default {
   fetchTrendingMovies,
   fetchPopularMovies,
   fetchWithQuery,
-  fetchMoviesById,
+  fetchMovieById,
   fetchCastById,
   fetchReviewById,
 };
