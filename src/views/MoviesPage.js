@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import getQueryString from '../utils/getQueryString';
 import filmsApi from '../services/filmsApi';
-import updateMoviesImg from '../utils/updateMoviesImg';
+import { updateMoviesImg } from '../utils/updateValues';
 import Loader from '../components/Loader/Loader';
 
 import MoviesPageList from '../components/MoviesPageList/MoviesPageList';
@@ -24,7 +24,7 @@ export default class MoviesPage extends Component {
       return this.handleSubmitQuery(query);
     }
 
-    this.fetchPopular();
+    this.loadPageFetch();
     this.setState({ showPopular: true });
   }
 
@@ -37,16 +37,12 @@ export default class MoviesPage extends Component {
     }
   }
 
-  fetchPopular = async () => {
+  loadPageFetch = async () => {
     this.setState({ loader: true });
 
-    try {
-      const popular = await filmsApi.defaultFetchPopular();
+    const { results } = await filmsApi.fetchPopularMovies();
 
-      this.setState({ films: updateMoviesImg(popular), loader: false });
-    } catch (err) {
-      console.log(err);
-    }
+    this.setState({ films: updateMoviesImg(results), loader: false });
   };
 
   handleSubmitQuery = async query => {
@@ -57,22 +53,18 @@ export default class MoviesPage extends Component {
       search: `query=${query}`,
     });
 
-    try {
-      const { results } = await filmsApi.fetchWithQuery(query);
+    const { results } = await filmsApi.fetchWithQuery(query);
 
-      this.setState({
-        showPopular: false,
-        films: updateMoviesImg(results),
-        loader: false,
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    this.setState({
+      showPopular: false,
+      films: updateMoviesImg(results),
+      loader: false,
+    });
   };
 
   render() {
     const { films, showPopular, loader } = this.state;
-    const isShowFilms = films.length > 0;
+    const isShowFilms = films;
     const isShowPopular = showPopular;
     const isShowLoader = loader;
 

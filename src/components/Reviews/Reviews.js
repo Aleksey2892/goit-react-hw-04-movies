@@ -10,18 +10,15 @@ export default class Reviews extends Component {
   async componentDidMount() {
     const id = this.props.match.params.showId;
 
-    try {
-      const { results } = await filmsApi.fetchReviewWithId(id);
+    const { results } = await filmsApi.fetchReviewById(id);
 
-      this.setState({ reviews: results });
-    } catch (err) {
-      console.log(err);
-    }
+    this.setState({ reviews: results });
   }
 
   render() {
     const { reviews } = this.state;
     const isShowReview = reviews.length > 0;
+
     return (
       <>
         {isShowReview && (

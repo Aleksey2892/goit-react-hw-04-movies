@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import filmsApi from '../services/filmsApi';
 import routes from '../routes';
-import updateMoviesImg from '../utils/updateMoviesImg';
+import { updateMoviesImg } from '../utils/updateValues';
 import Loader from '../components/Loader/Loader';
 
 import MoviesPageList from '../components/MoviesPageList/MoviesPageList';
@@ -16,24 +16,20 @@ export default class HomePage extends Component {
   };
 
   componentDidMount() {
-    this.startFetch();
+    this.loadPageFetch();
   }
 
-  startFetch = async () => {
+  loadPageFetch = async () => {
     this.setState({ loader: true });
 
-    try {
-      const { results } = await filmsApi.defaultFetch();
+    const { results } = await filmsApi.fetchTrendingMovies();
 
-      this.setState({ films: updateMoviesImg(results), loader: false });
-    } catch (err) {
-      console.log(err);
-    }
+    this.setState({ films: updateMoviesImg(results), loader: false });
   };
 
   render() {
     const { films, loader } = this.state;
-    const isShowFilms = films.length > 0;
+    const isShowFilms = films;
     const isShowLoader = loader;
 
     return (

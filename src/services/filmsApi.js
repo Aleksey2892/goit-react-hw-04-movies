@@ -3,67 +3,103 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
 const apiKey = 'cc24e28d216ef164940b9fd9893ff62a';
 
-const defaultFetch = () => {
-  return axios
-    .get(`trending/movie/day?api_key=${apiKey}`)
-    .then(({ data }) => data)
-    .catch(err => {
-      throw err;
-    });
+const fetchTrendingMovies = async () => {
+  try {
+    const { data } = await axios.get(`trending/movie/day?api_key=${apiKey}`);
+
+    if (data) return data;
+
+    return [];
+  } catch (error) {
+    console.error(error);
+
+    return [];
+  }
 };
 
-const defaultFetchPopular = () => {
-  return axios
-    .get(`movie/popular?api_key=${apiKey}&language=en-US&page=1`)
-    .then(({ data }) => data.results)
-    .catch(err => {
-      throw err;
-    });
+const fetchPopularMovies = async () => {
+  try {
+    const { data } = await axios.get(
+      `movie/popular?api_key=${apiKey}&language=en-US&page=1`,
+    );
+
+    if (data) return data;
+
+    return [];
+  } catch (error) {
+    console.error(error);
+
+    return [];
+  }
 };
 
-const fetchWithQuery = query => {
-  return axios
-    .get(
+const fetchWithQuery = async query => {
+  try {
+    const { data } = await axios.get(
       `search/movie?api_key=${apiKey}&language=en-US&query=${query}&page=1&include_adult=false`,
-    )
-    .then(({ data }) => data)
-    .catch(err => {
-      throw err;
-    });
+    );
+
+    if (data) return data;
+
+    return [];
+  } catch (error) {
+    console.error(error);
+
+    return [];
+  }
 };
 
-const fetchWithId = id => {
-  return axios
-    .get(`movie/${id}?api_key=${apiKey}&language=en-US`)
-    .then(({ data }) => data)
-    .catch(err => {
-      throw err;
-    });
+const fetchMoviesById = async id => {
+  try {
+    const { data } = await axios.get(
+      `movie/${id}?api_key=${apiKey}&language=en-US`,
+    );
+
+    if (data) return data;
+
+    return [];
+  } catch (error) {
+    console.error(error);
+
+    return [];
+  }
 };
 
-const fetchCastWithId = id => {
-  return axios
-    .get(`movie/${id}/credits?api_key=${apiKey}`)
-    .then(({ data }) => data)
-    .catch(err => {
-      throw err;
-    });
+const fetchCastById = async id => {
+  try {
+    const { data } = await axios.get(`movie/${id}/credits?api_key=${apiKey}`);
+
+    if (data) return data;
+
+    return [];
+  } catch (error) {
+    console.error(error);
+
+    return [];
+  }
 };
 
-const fetchReviewWithId = id => {
-  return axios
-    .get(`movie/${id}/reviews?api_key=${apiKey}&language=en-US&page=1`)
-    .then(({ data }) => data)
-    .catch(err => {
-      throw err;
-    });
+const fetchReviewById = async id => {
+  try {
+    const { data } = await axios.get(
+      `movie/${id}/reviews?api_key=${apiKey}&language=en-US&page=1`,
+    );
+
+    if (data) return data;
+
+    return [];
+  } catch (error) {
+    console.error(error);
+
+    return [];
+  }
 };
 
 export default {
-  defaultFetch,
-  defaultFetchPopular,
+  fetchTrendingMovies,
+  fetchPopularMovies,
   fetchWithQuery,
-  fetchWithId,
-  fetchCastWithId,
-  fetchReviewWithId,
+  fetchMoviesById,
+  fetchCastById,
+  fetchReviewById,
 };

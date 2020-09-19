@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import filmsApi from '../../services/filmsApi';
-import updateCastImg from '../../utils/updateCastImg';
+import { updateCastImg } from '../../utils/updateValues';
 
 import noAvatar from '../../assets/img/no-avatar-350x350.jpg';
 
@@ -15,13 +15,9 @@ export default class Cast extends Component {
   async componentDidMount() {
     const id = this.props.match.params.showId;
 
-    try {
-      const { cast } = await filmsApi.fetchCastWithId(id);
+    const { cast } = await filmsApi.fetchCastById(id);
 
-      this.setState({ casts: updateCastImg(cast) });
-    } catch (err) {
-      console.log(err);
-    }
+    this.setState({ casts: updateCastImg(cast) });
   }
 
   render() {

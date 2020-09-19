@@ -1,9 +1,9 @@
 import React, { Component, lazy, Suspense } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 
 import routes from '../routes';
 import filmsApi from '../services/filmsApi';
-import updateDetails from '../utils/updateDetails';
+import { updateDetails } from '../utils/updateValues';
 import noImg from '../assets/img/no-image.jpg';
 import Loader from '../components/Loader/Loader';
 
@@ -31,20 +31,18 @@ export default class MovieDetailsPage extends Component {
 
   checkLocation = () => {
     const { state } = this.props.location;
+
     if (state && state.from) {
       return state.from;
     }
+
     return '';
   };
 
   fetchForDetails = async id => {
-    try {
-      const details = await filmsApi.fetchWithId(id);
+    const details = await filmsApi.fetchMoviesById(id);
 
-      this.setState({ details: updateDetails(details) });
-    } catch (err) {
-      console.log(err);
-    }
+    this.setState({ details: updateDetails(details) });
   };
 
   handleBackBtn = () => {
@@ -84,15 +82,16 @@ export default class MovieDetailsPage extends Component {
                 <h3>
                   {details.original_title} ({details.release_date})
                 </h3>
-                <h4>User Score: {details.vote_average * 10}%</h4>
+                <h3>User Score: {details.vote_average * 10}%</h3>
                 <h3>Overview</h3>
                 <p>{details.overview}</p>
-                <h4>Genres</h4>
+                <h3>Genres</h3>
                 <p>
                   {details.genres &&
                     details.genres.map(genre => (
                       <span key={genre.id}>{genre.name} </span>
                     ))}
+
                   {!details.genres && <span>No genres</span>}
                 </p>
               </div>
@@ -102,26 +101,28 @@ export default class MovieDetailsPage extends Component {
             <p className={s.infoTitle}>Additional Information</p>
             <ul className={s.addInfo}>
               <li className={s.info}>
-                <Link
+                <NavLink
                   className={s.infoLink}
+                  activeClassName={s.infoLinkActive}
                   to={{
                     pathname: `${this.props.match.url}${routes.cast}`,
                     state: { from: this.checkLocation() },
                   }}
                 >
                   Cast
-                </Link>
+                </NavLink>
               </li>
               <li className={s.info}>
-                <Link
+                <NavLink
                   className={s.infoLink}
+                  activeClassName={s.infoLinkActive}
                   to={{
                     pathname: `${this.props.match.url}${routes.reviews}`,
                     state: { from: this.checkLocation() },
                   }}
                 >
                   Review
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </>
