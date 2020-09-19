@@ -24,18 +24,16 @@ export default class SearchForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit} className={s.form}>
-        <label>
-          <input
-            autoFocus
-            type="text"
-            autoComplete="off"
-            placeholder="Search movie"
-            className={s.input}
-            value={this.state.inputValue}
-            onChange={this.handleChange}
-          />
-          <button className={s.btnSearch}>Search</button>
-        </label>
+        <input
+          autoFocus
+          type="text"
+          autoComplete="off"
+          placeholder="Search movie"
+          className={s.input}
+          value={this.state.inputValue}
+          onChange={this.handleChange}
+        />
+        <button className={s.btnSearch}>Search</button>
       </form>
     );
   }

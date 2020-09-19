@@ -1,8 +1,11 @@
 .header {
+  padding-top: 20px;
+  padding-bottom: 20px;
   background-color: rgb(0, 0, 143);
-  height: 50px;
 }
 
 .layout {
-  padding: 0 15px;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 30px;
 }

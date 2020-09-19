@@ -1,16 +1,5 @@
-.detailsBox {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 30px auto;
-  max-width: 800px;
-}
-
-.aboutFilmBox {
-  width: 500px;
-}
-
 .goBackBtn {
+  margin-top: 20px;
   margin-bottom: 20px;
   padding: 10px 10px;
   background-color: #bbbbbb;
@@ -26,57 +15,4 @@
     color: white;
     box-shadow: slategrey 2px 2px 5px 2px;
   }
-}
-
-.titleTrending {
-  text-align: center;
-  color: palevioletred;
-  text-transform: uppercase;
-}
-
-.titlePopular {
-  text-align: center;
-  color: palevioletred;
-  text-transform: uppercase;
-}
-
-.infoTitle {
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-.addInfo {
-  margin-top: 0;
-  display: flex;
-  justify-content: center;
-  padding: 0;
-  list-style: none;
-}
-
-.info {
-  margin-right: 20px;
-
-  &:last-child {
-    margin-right: 0;
-  }
-}
-
-.infoLink {
-  padding: 10px;
-  text-decoration: none;
-  color: black;
-  border: 1px solid black;
-  border-radius: 5px;
-  background-color: #bbbbbb;
-  transition: all 0.2s;
-
-  &:hover {
-    background-color: palevioletred;
-    color: white;
-  }
-}
-
-.infoLinkActive {
-  background-color: palevioletred;
-  box-shadow: slategrey 2px 2px 5px 2px;
 }
