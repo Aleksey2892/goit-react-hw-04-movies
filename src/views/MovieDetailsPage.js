@@ -28,7 +28,7 @@ export default class MovieDetailsPage extends Component {
   componentDidMount() {
     const { showId } = this.props.match.params;
 
-    this.fetchForDetails(showId);
+    this.getMovieDetails(showId);
   }
 
   checkLocation = () => {
@@ -41,7 +41,7 @@ export default class MovieDetailsPage extends Component {
     return '';
   };
 
-  fetchForDetails = async id => {
+  getMovieDetails = async id => {
     const details = await filmsApi.fetchMovieById(id);
 
     this.setState({ details: updateDetails(details) });

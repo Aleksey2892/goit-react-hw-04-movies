@@ -16,10 +16,10 @@ export default class HomePage extends Component {
   };
 
   componentDidMount() {
-    this.loadPageFetch();
+    this.getTrendingMovies();
   }
 
-  loadPageFetch = async () => {
+  getTrendingMovies = async () => {
     this.setState({ loader: true });
 
     const { results } = await filmsApi.fetchTrendingMovies();

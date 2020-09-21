@@ -21,10 +21,10 @@ export default class MoviesPage extends Component {
     const { query } = getQueryString(this.props.location.search);
 
     if (query) {
-      return this.handleSubmitQuery(query);
+      return this.handleSubmitByQuery(query);
     }
 
-    this.loadPageFetch();
+    this.getPopularMovies();
     this.setState({ showPopular: true });
   }
 
@@ -33,11 +33,11 @@ export default class MoviesPage extends Component {
     const { query: nextQuery } = getQueryString(this.props.location.search);
 
     if (prevQuery !== nextQuery) {
-      this.handleSubmitQuery(nextQuery);
+      this.handleSubmitByQuery(nextQuery);
     }
   }
 
-  loadPageFetch = async () => {
+  getPopularMovies = async () => {
     this.setState({ loader: true });
 
     const { results } = await filmsApi.fetchPopularMovies();
@@ -45,7 +45,7 @@ export default class MoviesPage extends Component {
     this.setState({ films: updateMoviesImg(results), loader: false });
   };
 
-  handleSubmitQuery = async query => {
+  handleSubmitByQuery = async query => {
     this.setState({ loader: true });
 
     this.props.history.push({
@@ -70,7 +70,7 @@ export default class MoviesPage extends Component {
 
     return (
       <>
-        <SearchForm onSubmit={this.handleSubmitQuery} />
+        <SearchForm onSubmit={this.handleSubmitByQuery} />
 
         {isShowLoader && (
           <div>
