@@ -7,12 +7,24 @@
   border-radius: 5px;
   cursor: pointer;
   font-weight: 600;
+  box-shadow: 1px 1px 5px 0 black;
   transition: all 0.2s;
-  border: 1px solid black;
 
   &:hover {
     background-color: palevioletred;
     color: white;
     box-shadow: slategrey 2px 2px 5px 2px;
   }
+}
+
+.titlePopular {
+  text-align: center;
+  color: palevioletred;
+  text-transform: uppercase;
+}
+
+.titleTrending {
+  text-align: center;
+  color: palevioletred;
+  text-transform: uppercase;
 }

@@ -18,7 +18,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  border: 1px solid black;
+  box-shadow: 1px 1px 5px 0 black;
 
   &:hover {
     color: white;
